@@ -5,6 +5,8 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
 
   const blogPost = path.resolve(`./src/templates/blog-post.js`);
+  const Tags = path.resolve(`./src/templates/Tags.jsx`);
+
   return graphql(
     `
       {
@@ -19,6 +21,7 @@ exports.createPages = ({ graphql, actions }) => {
               }
               frontmatter {
                 title
+                tags
               }
             }
           }
@@ -49,7 +52,27 @@ exports.createPages = ({ graphql, actions }) => {
       });
     });
 
-    return null;
+    // Tag pages:
+    let tags = [];
+    // Iterate through each post, putting all found tags into `tags`
+    posts.forEach(post => {
+      if (post.node.frontmatter.tags) {
+        tags = tags.concat(post.node.frontmatter.tags);
+      }
+    });
+    // Eliminate duplicate tags
+    tags = [...new Set(tags)];
+
+    // Make tag pages
+    tags.forEach(tag => {
+      createPage({
+        path: `/tags/${tag}`,
+        component: Tags,
+        context: {
+          tag,
+        },
+      });
+    });
   });
 };
 
