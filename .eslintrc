@@ -2,10 +2,20 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint"
   ],
-  "plugins": ["react"],
+  "plugins": [""react", "prettier"],
   "rules": {
     "react/prop-types": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "semi": true
+      }
+    ]
   },
   "settings": {
     "react": {
