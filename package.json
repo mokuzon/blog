@@ -77,14 +77,5 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },
-  "lint-staged": {
-    "linters": {
-      "*.{js,jsx,ts,tsx}": [
-        "./node_modules/.bin/eslint --fix",
-        "./node_modules/.bin/stylelint",
-        "git add"
-      ]
-    }
   }
 }
